@@ -26,9 +26,9 @@ public class InventarioRestController {
         this.inventarioService = inventarioService;
     }
 
-    // a) GET para listar con paginacion (ej. /api/productos?page=0&size=5)
+    //GET para listar con paginacion
     @GetMapping
-    public ResponseEntity> listarPaginado(
+    public ResponseEntity<?> listarPaginado(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "5") int size) {
 
@@ -48,7 +48,7 @@ public class InventarioRestController {
         return ResponseEntity.ok(respuesta);
     }
 
-    // a.2) GET para ver un registro individual por ID (/api/productos/{id})
+    // GET para ver un registro individual por id
     @GetMapping("/{id}")
     public ResponseEntity<?> obtenerPorId(@PathVariable Integer id) {
         Optional<Producto> productoOpt = inventarioService.buscarProductoPorId(id);
@@ -62,7 +62,7 @@ public class InventarioRestController {
         return ResponseEntity.ok(ProductoResponseDTO.fromEntity(productoOpt.get()));
     }
 
-    // b) POST para crear un producto validando con @Valid y devolviendo 201 Created
+    //POST para crear un producto validando con @Valid y devolviendo 201 Created
     @PostMapping
     public ResponseEntity<?> crear(@Valid @RequestBody ProductoRequestDTO dto) {
         Optional<Categoria> categoriaOpt = inventarioService.buscarCategoriaPorId(dto.getCategoriaId());
@@ -85,7 +85,7 @@ public class InventarioRestController {
         return ResponseEntity.status(HttpStatus.CREATED).body(ProductoResponseDTO.fromEntity(guardado));
     }
 
-    // c) PUT para actualizar un producto existente validando con @Valid
+    //PUT para actualizar un producto existente validando con @Valid
     @PutMapping("/{id}")
     public ResponseEntity<?> actualizar(@PathVariable Integer id, @Valid @RequestBody ProductoRequestDTO dto) {
         Optional<Producto> existenteOpt = inventarioService.buscarProductoPorId(id);
@@ -116,7 +116,7 @@ public class InventarioRestController {
         return ResponseEntity.ok(ProductoResponseDTO.fromEntity(actualizado));
     }
 
-    // d) DELETE para eliminar un producto por ID
+    //DELETE para eliminar un producto por id
     @DeleteMapping("/{id}")
     public ResponseEntity<?> eliminar(@PathVariable Integer id) {
         Optional<Producto> existenteOpt = inventarioService.buscarProductoPorId(id);
