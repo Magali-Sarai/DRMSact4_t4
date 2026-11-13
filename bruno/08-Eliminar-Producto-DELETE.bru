@@ -1,0 +1,15 @@
+meta {
+  name: 8. Eliminar Producto (DELETE)
+  type: http
+  seq: 8
+}
+
+delete {
+  url: {{baseUrl}}/api/productos/4
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
